@@ -119,7 +119,7 @@ In this tutorial, you'll be doing the following:
 | ----------------------- | ---------------------- | ------------: |
 | B7                      | B1                     | BME280        |
 
-- For more information, see: [Adafruit BME280 sensor setup](https://learn.adafruit.com/adafruit-bme280-humidity-barometric-pressure-temperature-sensor-breakout/wiring-and-test).
+- For more information regarding the sensor, see: [Adafruit BME280 sensor setup](https://learn.adafruit.com/adafruit-bme280-humidity-barometric-pressure-temperature-sensor-breakout/wiring-and-test)
 
 **At the end of your work, your Feather M0 WiFi should be connected to the sensor. We'll test it in the next sections.**
 
@@ -127,9 +127,9 @@ In this tutorial, you'll be doing the following:
 
 You will need to install the Feather M0 WiFi board extension for the Arduino IDE. This takes two steps:
 
-1) Follow the instructions here: https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/setup. There you will see how to add a URL pointing to Adafruit's repository of board extensions. 
+1) Follow the instructions here: [https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/setup](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/setup). There you will see how to add a URL pointing to Adafruit's repository of board extensions. 
 
-2) Then continue with https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/using-with-arduino-ide, and see how to make the Feather M0 WiFi board selectable under the **Tools** menu, and how to get the Blink sketch to run.
+2) Then continue with [https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/using-with-arduino-ide](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/using-with-arduino-ide), and see how to make the Feather M0 WiFi board selectable under the **Tools** menu, and how to get the Blink sketch to run.
  - If you have issues uploading to the Feather M0, click the RST button twice (double-click) to get back into the bootloader.
 
 ## 1.6 Install Library Dependencies
@@ -285,7 +285,8 @@ This tutorial has the following steps:
 | Pin 3J                  | Pin 3-                 | 330 Ohm       |
 | Pin 5J                  | Pin 5-                 | 330 Ohm       |
 
-- For more information, see: [Adafruit BME280 sensor setup](https://learn.adafruit.com/adafruit-bme280-humidity-barometric-pressure-temperature-sensor-breakout/wiring-and-test).
+- For more information, see: [Adafruit BME280 sensor setup](https://learn.adafruit.com/adafruit-bme280-humidity-barometric-pressure-temperature-sensor-breakout/wiring-and-test)
+- For more information regarding LEDs, see the following article: [Light-emitting Diodes]
 
 **At the end of your work, your Feather M0 WiFi should be connected with a working sensor. We'll test it in the next sections.**
 
