@@ -84,9 +84,10 @@ app.post('/api/command', function(req, res) {
         if (err) {
             console.error('Could not connect: ' + err.message);
         } else { // {"Name":"TurnFanOn","Parameters":""}
-            var data = JSON.stringify({ "Name":command,"Parameters":"" });
+            var data = JSON.stringify({ "Name":command,"Parameters":null });
+            var message = new Message (data);
             console.log('Sending message: ' + data);
-            iotHubClient.send(deviceId, data, printResultFor('send'));
+            iotHubClient.send(deviceId, message, printResultFor('send'));
         }
     });
 
