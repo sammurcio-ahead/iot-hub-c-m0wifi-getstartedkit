@@ -3,10 +3,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 
-var Amqp = require('azure-iot-device-amqp').Amqp;
-var DeviceClient = require('azure-iot-device').Client;
 var ServiceClient = require('azure-iothub').Client;
-var Message = require('azure-iot-device').Message;
+var Message = require('azure-iot-common').Message;
 var EventHubClient = require('azure-event-hubs').Client;
 var DeviceConnectionString = require('azure-iot-device').ConnectionString;
 var azure = require('azure-storage');
@@ -22,8 +20,7 @@ var storageTable = nconf.get('storageTable');
 var iotHubConnString = nconf.get('iotHubConnString');
 
 var deviceId = DeviceConnectionString.parse(deviceConnString).DeviceId;
-var deviceClient = DeviceClient.fromConnectionString(deviceConnString, Amqp);
-var iotHubClient = ServiceClient.fromConnectionString(iotHubConnString, Amqp);
+var iotHubClient = ServiceClient.fromConnectionString(iotHubConnString);
 
 // event hub alerts
 var alerts = [];
@@ -104,30 +101,6 @@ app.post('/api/command', function(req, res) {
 
     res.end();
 });
-
-deviceClient.open(function(err, result) {
-    if (err) {
-        console.log('could not connect: ' + err.message);
-        return;
-    }
-    console.log('client connected');
-
-    deviceClient.on('message', function(msg) {
-        console.log('Id: ' + msg.messageId + ' Body: ' + JSON.stringify(msg.data));
-        deviceClient.complete(msg, completedCallback);
-    });
-
-    deviceClient.on('error', function(err) {
-        console.error('Error: ' + err.message);
-    })
-
-    deviceClient.on('disconnect', function() {
-        console.log('client disconnected');
-        deviceClient.removeAllListeners();
-        deviceClient.connect(connectCallback);
-    });
-});
-
 
 app.listen(port, function() {
     console.log('app running on http://localhost:' + port);
