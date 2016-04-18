@@ -240,6 +240,8 @@ This tutorial has the following steps:
 - Prepare your local web solution for monitoring and sending commands to your device.
 - Update the sample code to respond to commands and include the data from our sensors, sending it to Microsoft Azure to be viewed remotely.
 
+The end result will be a functional command center where you can view the history of your device's sensor data, a history of alerts, and send commands back to the device.
+
 ## 2.2 Before Starting
 
 ### 2.2.1 Required Software
@@ -553,7 +555,7 @@ static const char* connectionString = "[Device Connection String]";
 - There should now be a green LED on your Feather M0 WiFi. Re-select the COM port if necessary, and then open the Serial Monitor. After 15 seconds you should see a measurements update.
 - Data is now being sent off at regular intervals to Microsoft Azure. When it detects something out of range, you will see the LED you’ve set up turn from green to red!
 
-Head back and run your Node application and you will see the most recent updates and any alerts show up there. You can even click the buttons to change the LED's!
+Head back to your Node application and you will have a fully functional command center, complete with a history of sensor data, alerts that display when the temperature got outside a certain range, and commands that you can send to your device remotely.
 
 ***
 **Note:** Make sure to **stop** your Command Center jobs once you have when you finish to avoid unnecessary Azure consumption!  (See: [Troubleshooting](#troubleshooting))

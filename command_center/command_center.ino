@@ -60,7 +60,7 @@ void setup() {
   delay(10000);
   
   Serial.begin(9600);
-  Serial.println("Azure_remote_monitoring Sketch.");
+
 #ifdef WINC_EN
   pinMode(WINC_EN, OUTPUT);
   digitalWrite(WINC_EN, HIGH);
