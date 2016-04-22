@@ -145,7 +145,8 @@ For this project, we'll need the the following Libraries:
 
  We will also need the latest Azure IoT Library. 
  
- - Go to https://github.com/stefangordon/AzureIoT/ and follow the instructions under "Adafruit Feather M0"
+ - Download the [library as a zip](https://github.com/arduino-libraries/AzureIoT/archive/master.zip)
+ - Extract to `C:\Users\[username]\Documents\Arduino\libraries` (remove any other copies of the library)
 
 ***
 **Note**: If you have an earlier version of the IoT library, navigate to your Arduino documents directory. Inside the "Libraries" folder, there will be a number of installed libraries. Simply delete the `AzureIoT` folder.
