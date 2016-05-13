@@ -105,14 +105,14 @@ In this tutorial, you'll be doing the following:
 - All connections are on the board, not on the device
 
 ***
-**Note:** Column on the left corresponds to the sensor and on the right to the board. On the image, the board is place between 10 and 30 and sensor between 1 and 9. With this layout, you are able to connect wires next to the corresponding pins on the breadboard. Additionally, when counting the - and +  pins, start from the right and count in, as these do not align with the numbers indicated on the board.
+**Note:** Column on the left corresponds to the sensor and on the right to the board. On the image, the board is place between 10 and 30, with the RST pin connected to row 29, and sensor between 1 and 9, with the CS pin connected to the row 1. With this layout, you are able to connect wires next to the corresponding pins on the breadboard. Additionally, when counting the - and +  pins, start from the right and count in, as these do not align with the numbers indicated on the board.
 ***
 
 | Start | End | Cable Color |
 | ----------------------- | ---------------------- | ------------: |
 | CS (Pin 1E) | CE0 (Pin 16B) | Orange cable |
 | SDI (Pin 2E) | MO (Pin 18J) | Blue cable |
-| SDO (Pin 3E) | MI (Pin 19J) | White cable |
+| SDO (Pin 3E) | MI (Pin 17J) | White cable |
 | SCK (Pin 4E) | SCK (Pin 19J) | Yellow cable |
 | GND (Pin 5E) | Pin 5- | Black cable |
 | 3Vo (6E) | Pin 6+ | Red cable |
@@ -131,18 +131,18 @@ In this tutorial, you'll be doing the following:
 
 You will need to install the Feather M0 WiFi board extension for the Arduino IDE. This takes two steps:
 
-1) Follow the instructions here: [https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/setup](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/setup). There you will see how to add a URL pointing to Adafruit's repository of board extensions. 
+1) Follow the instructions [here](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/setup). There you will see how to add a URL pointing to Adafruit's repository of board extensions. 
 
-2) Then continue with [https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/using-with-arduino-ide](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/using-with-arduino-ide), and see how to make the Feather M0 WiFi board selectable under the **Tools** menu, and how to get the Blink sketch to run.
+2) Then continue with [Using Arduino IDE](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/using-with-arduino-ide), and see how to make the Feather M0 WiFi board selectable under the **Tools** menu, and how to get the Blink sketch to run.
  - If you have issues uploading to the Feather M0, click the RST button twice (double-click) to get back into the bootloader.
 
 ## 1.6 Install Library Dependencies
 
-For this project, we'll need the the following Libraries:
+For this project, we'll need the following Libraries:
 
- - Adafruit WINC1500
+ - Adafruit WINC1500 (download it from [here](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/using-with-arduino-ide))
  - Adafruit BME280
- - Adafruit Sensor
+ - Adafuit Sensor Master
  - RTCZero
  
  To install them, click on the `Sketch -> Include Library -> Manage Libraries`. Search for each library using the box in the upper-right to filter your search, click on the found library, and click the "Install" button.
@@ -158,7 +158,7 @@ For this project, we'll need the the following Libraries:
 
 ## 1.7 Modify the Remote Monitoring sample 
 
-- Unzip the example code, and double-click the file `remote_monitoring.ino` to open the project in the Arduino IDE.
+- Unzip the [example code](https://github.com/Azure-Samples/iot-hub-c-m0wifi-getstartedkit/archive/master.zip), and double-click the file `remote_monitoring.ino` to open the project in the Arduino IDE.
 - You will be prompted to creat a folder. Do this, and move the other files in the folder into the newly created child folder
 - In the project, look for the following lines of code:
 
@@ -168,6 +168,25 @@ static const char pass[] = "[Your WiFi network WPA password or WEP key]";
 ```
 
 - Replace the placeholders with your WiFi name (SSID), WiFi password, and the device connection string you created at the beginning of this tutorial. 
+- Still in the `remote_monitoring.ino`, you must decide each SSL client this IoT Hub client will use. Make sure that the AzureIoTHubClient.h was included in the beginning of this file:
+```
+#include "AzureIoTHubClient.h"
+```
+
+- Look for the follow code. If it is not there, copy it from here. 
+```
+// change the next line to use on non-Adafruit WINC1500 based boards/shields  
+Adafruit_WINC1500SSLClient sslClient; // for Adafruit WINC150  
+//WiFiSSLClient sslClient;              // for WiFi101  
+//WiFiClientSecure sslClient;           // for ESP8266  
+      
+AzureIoTHubClient iotHubClient(sslClient);  
+```
+
+***
+**Note**: If your target board is not Adafruit WINC1500, you must change the sslClient to the most appropriate one.
+***
+
 - Save with `Control-s`
 
 - Open up the file `remote_monitoring.c`
@@ -507,17 +526,17 @@ Next, we will update your device so that it can interact with all the things you
 
 You will need to install the Feather M0 WiFi board extension for the Arduino IDE. This takes two steps:
 
-1) Follow the instructions here: https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/setup. There you will see how to add a URL pointing to Adafruit's repository of board extensions. 
+1) Follow the instructions [here](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/setup). There you will see how to add a URL pointing to Adafruit's repository of board extensions. 
 
-2) Then continue with https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/using-with-arduino-ide, and see how to make the Feather M0 WiFi board selectable under the **Tools** menu, and how to get the Blink sketch to run.
+2) Then continue with [Using Arduino IDE](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/using-with-arduino-ide), and see how to make the Feather M0 WiFi board selectable under the **Tools** menu, and how to get the Blink sketch to run.
 
 ## 2.10 Install Library Dependencies
 
 For this project, we'll also need the the following libraries:
 
- - Adafruit WINC1500
+ - Adafruit WINC1500 (download it from [here](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/using-with-arduino-ide))
  - Adafruit BME280
- - Adafruit Sensor
+ - Adafruit Sensor Master
  - RTCZero
  
  To install them, click on the `Sketch -> Include Library -> Manage Libraries`. Search for each library using the box in the upper-right to filter your search, click on the found library, and click the "Install" button.
