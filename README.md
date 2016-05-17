@@ -41,7 +41,7 @@ This tutorial describes the process of taking your Feather M0 WiFi kit, and usin
 
 In this tutorial, you'll be doing the following:
 - Setting up your environment on Azure using the Microsoft Azure IoT Suite Remote Monitoring preconfgiured solution, getting a large portion of the set-up that would be required done in one step.
-- Setting your device and sensors up so that it can communicate with both your computer, and Azure IoT. 
+- Setting your device and sensors up so that it can communicate with both your computer, and Azure IoT.
 - Updating the device code sample to include our connection data and send it to Azure IoT to be viewed remotely.
 
 ## 1.2 Before Starting
@@ -59,7 +59,7 @@ In this tutorial, you'll be doing the following:
 
 ## 1.3 Create a New Azure IoT Suite Remote Monitoring solution and Add Device
 
-- Log in to [Azure IoT Suite](https://www.azureiotsuite.com/)  with your Microsoft account and click **Create a New Preconfigured Solution** 
+- Log in to [Azure IoT Suite](https://www.azureiotsuite.com/)  with your Microsoft account and click **Create a New Preconfigured Solution**
 
 ***
 **Note:** For first time users, click here to get your [Azure free trial](https://azure.microsoft.com/en-us/pricing/free-trial/) which gives you 200USD of credit to get started.
@@ -76,10 +76,10 @@ In this tutorial, you'll be doing the following:
 - Wait for Azure to finish provisioning your IoT suite (this process may take up to 10 minutes), and then click **Launch**
 
 ***
-**Note:** You may be asked to log back in. This is to ensure your solution has proper permissions associated with your account. 
+**Note:** You may be asked to log back in. This is to ensure your solution has proper permissions associated with your account.
 ***
 
-- Open the link to your IoT Suite’s “Solution Dashboard.” You may have been redirected there already. 
+- Open the link to your IoT Suite’s “Solution Dashboard.” You may have been redirected there already.
 - This opens your personal remote monitoring site at the URL _&lt;Your Azure IoT Hub suite name&gt;.azurewebsites.net_ (e.g. _FeatherM0Suite.azurewebsites.net_)
 - Click **Add a Device** at the lower left hand corner of your screen
 - Add a new **custom device**
@@ -98,7 +98,7 @@ In this tutorial, you'll be doing the following:
 - For additional reference, refer to the following:
  - https://azure.microsoft.com/en-us/documentation/articles/iot-suite-remote-monitoring-sample-walkthrough/
  - https://azure.microsoft.com/en-us/documentation/articles/iot-suite-connecting-devices/
- 
+
 ## 1.4 Connect the BME280 Sensor Module to your Device
 
 - Using [this image](https://github.com/Azure-Samples/iot-hub-c-m0wifi-getstartedkit/blob/master/img/feather_m0_wifi_remote_monitoring.png?raw=true) as a reference, connect your BME280 and Feather M0 WiFi to the breadboard
@@ -131,7 +131,7 @@ In this tutorial, you'll be doing the following:
 
 You will need to install the Feather M0 WiFi board extension for the Arduino IDE. This takes two steps:
 
-1) Follow the instructions [here](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/setup). There you will see how to add a URL pointing to Adafruit's repository of board extensions. 
+1) Follow the instructions [here](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/setup). There you will see how to add a URL pointing to Adafruit's repository of board extensions.
 
 2) Then continue with [Using Arduino IDE](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/using-with-arduino-ide), and see how to make the Feather M0 WiFi board selectable under the **Tools** menu, and how to get the Blink sketch to run.
  - If you have issues uploading to the Feather M0, click the RST button twice (double-click) to get back into the bootloader.
@@ -144,11 +144,11 @@ For this project, we'll need the following Libraries:
  - Adafruit BME280
  - Adafuit Sensor Master
  - RTCZero
- 
+
  To install them, click on the `Sketch -> Include Library -> Manage Libraries`. Search for each library using the box in the upper-right to filter your search, click on the found library, and click the "Install" button.
 
- We will also need the latest Azure IoT Library. 
- 
+ We will also need the latest Azure IoT Library.
+
  - Download the [library as a zip](https://github.com/arduino-libraries/AzureIoT/archive/master.zip)
  - Extract to `C:\Users\[username]\Documents\Arduino\libraries` (remove any other copies of the library)
 
@@ -156,7 +156,7 @@ For this project, we'll need the following Libraries:
 **Note**: If you have an earlier version of the IoT library, navigate to your Arduino documents directory. Inside the "Libraries" folder, there will be a number of installed libraries. Simply delete the `AzureIoT` folder.
 ***
 
-## 1.7 Modify the Remote Monitoring sample 
+## 1.7 Modify the Remote Monitoring sample
 
 - Unzip the [example code](https://github.com/Azure-Samples/iot-hub-c-m0wifi-getstartedkit/archive/master.zip), and double-click the file `remote_monitoring.ino` to open the project in the Arduino IDE.
 - You will be prompted to creat a folder. Do this, and move the other files in the folder into the newly created child folder
@@ -169,17 +169,19 @@ static const char pass[] = "[Your WiFi network WPA password or WEP key]";
 
 - Replace the placeholders with your WiFi name (SSID), WiFi password, and the device connection string you created at the beginning of this tutorial. 
 - Still in the `remote_monitoring.ino`, you must decide each SSL client this IoT Hub client will use. Make sure that the AzureIoTHubClient.h was included in the beginning of this file:
+
 ```
 #include "AzureIoTHubClient.h"
 ```
 
-- Look for the follow code. If it is not there, copy it from here. 
+- Look for the follow code. If it is not there, copy it from here.
+
 ```
 // change the next line to use on non-Adafruit WINC1500 based boards/shields  
 Adafruit_WINC1500SSLClient sslClient; // for Adafruit WINC150  
 //WiFiSSLClient sslClient;              // for WiFi101  
 //WiFiClientSecure sslClient;           // for ESP8266  
-      
+
 AzureIoTHubClient iotHubClient(sslClient);  
 ```
 
@@ -258,7 +260,7 @@ This tutorial describes the process of taking your Microsoft Azure IoT Starter K
 ## 2.1 Tutorial Overview
 
 This tutorial has the following steps:
-- Provision an IoT Hub instance on Microsoft Azure and adding your device. 
+- Provision an IoT Hub instance on Microsoft Azure and adding your device.
 - Prepare the device, get connected to the device, and set it up so that it can read sensor data.
 - Configure your Microsoft Azure IoT services by adding Event Hub, Storage Account, and Stream Analytics resources.
 - Prepare your local web solution for monitoring and sending commands to your device.
@@ -284,7 +286,7 @@ The end result will be a functional command center where you can view the histor
 
 - Using [this image](https://github.com/Azure-Samples/iot-hub-c-m0wifi-getstartedkit/blob/master/img/feather_m0_wifi_command_control.png?raw=true) as a reference, connect your BME280 and Feather M0 WiFi to the breadboard
 - All connections are on the board, not on the device
- 
+
 ***
 **Note:** Column on the left corresponds to the sensor and on the right to the board. On the image, the board is place between 10 and 30 and sensor between 1 and 9. With this layout, you are able to connect wires next to the corresponding pins on the breadboard. Additionally, when counting the - and +  pins, start from the right and count in, as these do not align with the numbers indicated on the board.
 ***
@@ -395,7 +397,7 @@ INTO   
     TemperatureAlertToEventHub
 FROM
     TempSensors
-WHERE MTemperature>25 
+WHERE MTemperature>25
 ```
 
 ***
@@ -441,7 +443,7 @@ WHERE MTemperature>25
 sudo apt-get update
 sudo apt-get install nodejs
 sudo apt-get install npm
-``` 
+```
 
 - Additionally, make sure you have cloned the project repository locally by issuing the following command in your desired directory:
 
@@ -453,26 +455,26 @@ git clone https://github.com/Azure-Samples/iot-hub-c-m0wifi-getstartedkit.git
 
 ```
 npm install -g bower
-npm install 
+npm install
 bower install
 ```
 
 - Open the `config.json` file and replace the information with your project.  See the following for instructions on how to retrieve those values.
 
-    - eventhubName: 
+    - eventhubName:
         - Open the [Classic Azure Management Portal](https://manage.windowsazure.com)
         - Open the Service Bus namespace you created earlier
-        - Switch to the **EVENT HUBS** page 
+        - Switch to the **EVENT HUBS** page
         - You can see and copy the name of your event hub from that page
-    - ehConnString: 
+    - ehConnString:
         - Click on the name of the event hub from above to open it
-        - Click on the "CONNECTION INFORMATION" button along the bottom. 
+        - Click on the "CONNECTION INFORMATION" button along the bottom.
         - From there, click the button to copy the readwrite shared access policy connection string.
     - deviceId:
         - Use the information on the [Manage IoT Hub](https://github.com/Azure/azure-iot-sdks/blob/master/doc/manage_iot_hub.md) to retrieve your deviceId using either the Device Explorer or iothub-explorer tools.
-    - iotHubConnString: 
+    - iotHubConnString:
         - In the [Azure Portal](https://portal.azure.com)
-        - Open the IoT Hub you created previously. 
+        - Open the IoT Hub you created previously.
         - Open the "Settings" blade
         - Click on the "Shared access policies" setting
         - Click on the "service" policy
@@ -487,9 +489,9 @@ bower install
         - Click the button next to the "PRIMARY ACCESS KEY" top copy it
     - storageTableName:
         - This must match the name of the table that was used in the Stream Analytics table storage output above.
-        - If you used the instructions above, you would have named it ***`TemperatureRecords`*** 
+        - If you used the instructions above, you would have named it ***`TemperatureRecords`***
         - If you named it something else, enter the name you used instead.    
-        
+
 ```
 {
     "port": "3000",
@@ -500,7 +502,7 @@ bower install
     "storageAcountName": "aaaaaaaaaaa",
     "storageAccountKey": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa==",
     "storageTable": "TemperatureRecords"
-} 
+}
 ```
 
 - Now it is time to run it! Enter the following command:
@@ -514,10 +516,10 @@ node server.js
 ```
 app running on http://localhost:3000
 client connected
-``` 
+```
 
 - Visit the url in your browser and you will see the Node app running!
- 
+
 To deploy this project to the cloud using Azure, you can reference [Creating a Node.js web app in Azure App Service](https://azure.microsoft.com/en-us/documentation/articles/web-sites-nodejs-develop-deploy-mac/).
 
 Next, we will update your device so that it can interact with all the things you just created.
@@ -526,7 +528,7 @@ Next, we will update your device so that it can interact with all the things you
 
 You will need to install the Feather M0 WiFi board extension for the Arduino IDE. This takes two steps:
 
-1) Follow the instructions [here](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/setup). There you will see how to add a URL pointing to Adafruit's repository of board extensions. 
+1) Follow the instructions [here](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/setup). There you will see how to add a URL pointing to Adafruit's repository of board extensions.
 
 2) Then continue with [Using Arduino IDE](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/using-with-arduino-ide), and see how to make the Feather M0 WiFi board selectable under the **Tools** menu, and how to get the Blink sketch to run.
 
@@ -538,13 +540,13 @@ For this project, we'll also need the the following libraries:
  - Adafruit BME280
  - Adafruit Sensor Master
  - RTCZero
- 
+
  To install them, click on the `Sketch -> Include Library -> Manage Libraries`. Search for each library using the box in the upper-right to filter your search, click on the found library, and click the "Install" button.
 
- We will also need the latest Azure IoT Library. 
- 
+ We will also need the latest Azure IoT Library.
+
  - Go to https://github.com/stefangordon/AzureIoT/ and follow the instructions under "Adafruit Feather M0"
- 
+
 ***
 **Note**: If you have an earlier version of the IoT library, navigate to your Arduino documents directory. Inside the "Libraries" folder, there will be a number of installed libraries. Simply delete the `AzureIoT` folder.
 ***
