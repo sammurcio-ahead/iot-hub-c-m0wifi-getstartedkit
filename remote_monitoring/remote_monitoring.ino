@@ -12,7 +12,6 @@
 #ifdef ARDUINO_SAMD_FEATHER_M0
 #include <Adafruit_WINC1500.h>
 #include <Adafruit_WINC1500Client.h>
-#include <Adafruit_WINC1500MDNS.h>
 #include <Adafruit_WINC1500Server.h>
 #include <Adafruit_WINC1500SSLClient.h>
 #include <Adafruit_WINC1500Udp.h>

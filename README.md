@@ -140,7 +140,7 @@ You will need to install the Feather M0 WiFi board extension for the Arduino IDE
 
 For this project, we'll need the following Libraries:
 
- - Adafruit WINC1500 (download it from [here](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/using-with-arduino-ide))
+ - Adafruit WINC1500 (download it from [here](https://github.com/adafruit/Adafruit_WINC1500))
  - Adafruit BME280
  - Adafuit Sensor Master
  - RTCZero
