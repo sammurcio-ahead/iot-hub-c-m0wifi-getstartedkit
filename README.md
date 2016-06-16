@@ -300,7 +300,7 @@ The end result will be a functional command center where you can view the histor
 | GND (Pin 5E)            | Pin 7-                 | Black cable   |
 | GND (Pin 26J)           | Pin 21-                | Black cable   |
 | 3Vo (Pin 6E)            | Pin 8+                 | Red cable     |
-| 3V (Pin 28J)            | Pin 23-                | Red cable     |
+| 3V (Pin 28J)            | Pin 23+                | Red cable     |
 
 
 | Start                   | End                    | Connector     |
