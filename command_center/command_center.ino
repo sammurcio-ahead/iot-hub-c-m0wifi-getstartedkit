@@ -13,7 +13,6 @@
 #ifdef ARDUINO_SAMD_FEATHER_M0
 #include <Adafruit_WINC1500.h>
 #include <Adafruit_WINC1500Client.h>
-#include <Adafruit_WINC1500MDNS.h>
 #include <Adafruit_WINC1500Server.h>
 #include <Adafruit_WINC1500SSLClient.h>
 #include <Adafruit_WINC1500Udp.h>
@@ -24,7 +23,7 @@
 #include <Adafruit_BME280.h>
 #include "rem_ctrl_http.h"
 #include "NTPClient.h"
-
+#include "AzureIoTHubClient.h"
 
 #ifdef ARDUINO_SAMD_FEATHER_M0
 #define WINC_CS   8
@@ -40,6 +39,10 @@ Adafruit_WINC1500 WiFi(WINC_CS, WINC_IRQ, WINC_RST);
 static const char ssid[] = "[Your WiFi network SSID or name]";
 static const char pass[] = "[Your WiFi network WPA password or WEP key]";
 static const char* connectionString = "[Device Connection String]";
+
+// Choose the sslClient for Adafruit WINC1500.
+Adafruit_WINC1500SSLClient sslClient;
+AzureIoTHubClient iotHubClient(sslClient);
 
 // The connection string is the one which begins with HostName=... and contains the DeviceId
 // and SharedAccessKey for this particular Thing on the Internet.

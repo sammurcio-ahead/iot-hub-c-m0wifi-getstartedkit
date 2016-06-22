@@ -8,7 +8,7 @@
 #include <time.h>
 
 #ifdef ARDUINO
-#include "AzureIoT.h"
+#include "AzureIoTHub.h"
 #else
 #include "serializer.h"
 #include "iothub_client_ll.h"
@@ -236,7 +236,7 @@ void rem_ctrl_http_send_data(float Temp_c__f, float Pres_hPa__f, float Humi_pct_
     myWeather->MTemperature = Temp_c__f;
     myWeather->Pressure = Pres_hPa__f;
     myWeather->Humidity = Humi_pct__f;
-    myWeather->EventTime = timeNow;
+    myWeather->EventTime = buff;
     
     unsigned char* destination;
     size_t destinationSize;
