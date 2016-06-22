@@ -288,7 +288,7 @@ The end result will be a functional command center where you can view the histor
 - All connections are on the board, not on the device
 
 ***
-**Note:** Column on the left corresponds to the sensor and on the right to the board. On the image, the board is place between 10 and 30 and sensor between 1 and 9. With this layout, you are able to connect wires next to the corresponding pins on the breadboard. Additionally, when counting the - and +  pins, start from the right and count in, as these do not align with the numbers indicated on the board.
+**Note:** Column on the left corresponds to the sensor and on the right to the board. On the image, the board is place between 10 and 30, with the RST pin connected to row 29, and sensor between 1 and 9, with the CS pin connected to the row 1. With this layout, you are able to connect wires next to the corresponding pins on the breadboard. Additionally, when counting the - and +  pins, start from the right and count in, as these do not align with the numbers indicated on the board.
 ***
 
 | Start                   | End                    | Cable Color   |
@@ -308,8 +308,8 @@ The end result will be a functional command center where you can view the histor
 | B7                      | B1                     | BME280        |
 | 3I                      | 4I                     | Green LED     |
 | 5I                      | 6I                     | Red LED       |
-| Pin 6J                  | Pin 21B                | Red cable     |
-| Pin 4J                  | Pin 20B                | Green cable   |
+| Pin 6J (long LED leg)   | Pin 21B                | Red cable     |
+| Pin 4J (long LED leg)   | Pin 20B                | Green cable   |
 | Pin 3J                  | Pin 3-                 | 330 Ohm       |
 | Pin 5J                  | Pin 5-                 | 330 Ohm       |
 
@@ -318,7 +318,7 @@ The end result will be a functional command center where you can view the histor
 
 **At the end of your work, your Feather M0 WiFi should be connected with a working sensor. We'll test it in the next sections.**
 
-### 2.4 Create a New Microsoft Azure IoT Hub and Add Device
+## 2.4 Create a New Microsoft Azure IoT Hub and Add Device
 
 - To create your Microsoft Azure IoT Hub and add a device, follow the instructions outlined in the [Setup IoT Hub Microsoft Azure Iot SDK page](https://github.com/Azure/azure-iot-sdks/blob/master/doc/setup_iothub.md).
 - After creating your device, make note of your connection string to enter into the code you’ll run on your device later
@@ -329,7 +329,9 @@ The end result will be a functional command center where you can view the histor
 
 
 ## 2.5 Create an Event Hub
+
 Event Hub is an Azure IoT publish-subscribe service that can ingest millions of events per second and stream them into multiple applications, services or devices.
+
 - Log on to the [Microsoft Azure Portal](https://portal.azure.com/)
 - Click on **New** -&gt; **Internet of Things**-&gt; **Event Hub**
 - After being redirected, click "Custom Create", Enter the following settings for the Event Hub (use a name of your choice for the event hub and the namespace):
@@ -351,12 +353,27 @@ Event Hub is an Azure IoT publish-subscribe service that can ingest millions of 
 - Look at the _Event-hub-compatible Endpoint_, and write down this part: sb://**thispart**.servicebus.windows.net/ we will call this one the _IoTHub EventHub-compatible namespace_
 
 ## 2.6 Create a Storage Account for Table Storage
+
 Now we will create a service to store our data in the cloud.
+
 - Log on to the [Microsoft Azure Portal](https://portal.azure.com/)
 - In the menu, click **New** and select **Data + Storage** then **Storage Account**
 - Choose **Classic** for the deployment model and click on **Create**
-- Enter the name of your choice (We chose `featherstorage`) for the account name, `Standard-RAGRS` for the type, choose your subscription, select the resource group you created earlier, then click on **Create**
+- Enter the name of your choice (We chose `featherstorage`) for the account name.
+- Select the Replication `Standard-RAGRS` for the type.
+- Choose your subscription.
+- Select the resource group you created earlier, in the item 2.4.
+- Then click on **Create**
 - Once the account is created, find it in the **resources blade** or click on the **pinned tile**, go to **Settings**, **Keys**, and write down the _primary connection string_.
+
+### 2.6.1 Create a Table to store the temperature
+
+You will need a table to store the temperature. You can do it using Visual Studios or the [Microsoft Azure Storage Explorer](http://storageexplorer.com/).
+
+- Using VS or Azure Storage Explorer, connect to your subscription.
+- Find the Storage Account that you've just created (We chose `featherstorage`). Click on it to expand.
+- Right click on **Table** then **Create Table**.
+- Choose your table name (We chose `TemperatureRecords`).
 
 ## 2.7 Create a Stream Analytics job to Save IoT Data in Table Storage and Raise Alerts
 Stream Analytics is an Azure IoT service that streams and analyzes data in the cloud. We'll use it to process data coming from your device.
@@ -409,8 +426,8 @@ WHERE MTemperature>25
     - Output Alias = _`TemperatureTableStorage`_
     - Sink = _`Table Storage`_
     - Storage account = _`featherstorage`_ (The storage you made earlier)
-    - Storage account key = _(The primary key for the storage account made earlier, can be found in Settings -&gt; Keys -&gt; Primary Access Key)_
-    - Table Name = _`TemperatureRecords`_*Your choice - If the table doesn’t already exist, Local Storage will create it
+    - Storage account key = _(The primary key for the storage account made earlier, can be found in Settings -&gt; Keys -&gt; Primary Access Key)_ (if requested)
+    - Table Name = _`TemperatureRecords`_ (Your choice)
     - Partition Key = _`DeviceId`_
     - Row Key = _`EventTime`_
     - Batch size = _`1`_
@@ -421,7 +438,7 @@ WHERE MTemperature>25
     - Service Bus Namespace = _`Feather2Suite`_
     - Event Hub Name = _`feathereventhub`_ (The Event Hub you made earlier)
     - Event Hub Policy Name = _`readwrite`_
-    - Event Hub Policy Key = _Primary Key for readwrite Policy name (That's the one you wrote down after creating the event hub)_
+    - Event Hub Policy Key = _Primary Key for readwrite Policy name (That's the one you wrote down after creating the event hub)_ (if requested)
     - Partition Key Column = _`0`_
     - Event Serialization format = _`JSON`_
     - Encoding = _`UTF-8`_
