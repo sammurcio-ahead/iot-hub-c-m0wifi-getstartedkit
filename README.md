@@ -15,9 +15,10 @@ You can choose to start with whichever tutorial you want to. If you've never wor
 **Don't have a kit yet?:** Click [here](http://azure.com/iotstarterkits)
 ***
 
-- [Running a Simple Remote Monitoring Solution on Feather M0 WiFi](#running-a-simple-remote-monitoring-solution-on-feather-m0-wifi)
-- [Using Microsoft Azure IoT Services to Identify Temperature Anomalies](#using-microsoft-azure-iot-services-to-identify-temperature-anomalies)
+- [Running a Simple Remote Monitoring Solution on Feather M0 WiFi](#run-on-device)
+- [Using Microsoft Azure IoT Services to Identify Temperature Anomalies](#using-microsoft-azure-iot)
 
+<a name="run-on-device" />
 # Running a Simple Remote Monitoring Solution on Feather M0 WiFi
 
 This tutorial describes the process of taking your Feather M0 WiFi kit, and using it to develop a temperature, humidity and pressure reader that can communicate with the cloud using the  Microsoft Azure IoT SDK. 
@@ -233,7 +234,7 @@ static const char* hubSuffix = "azure-devices.net";
 
 Please visit our [Azure IoT Dev Center](https://azure.microsoft.com/en-us/develop/iot/) for more samples and documentation on Azure IoT.
 
-
+<a name="using-microsoft-azure-iot" />
 # Using Microsoft Azure IoT Services to Identify Temperature Anomalies
 
 This tutorial describes the process of taking your Microsoft Azure IoT Starter Kit for the Feather M0 WiFi, and using it to develop a temperature and humidity reader that can communicate with the cloud using the  Microsoft Azure IoT SDK.
