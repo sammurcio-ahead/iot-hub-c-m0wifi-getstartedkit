@@ -20,7 +20,24 @@
 #endif
 #include "remote_monitoring.h"
 #include "NTPClient.h"
+#include <AzureIoTHub.h>
 
+// change the next line to use on non-Adafruit WINC1500 based boards/shields  
+Adafruit_WINC1500SSLClient sslClient; // for Adafruit WINC150  
+//WiFiSSLClient sslClient;              // for WiFi101  
+//WiFiClientSecure sslClient;           // for ESP8266  
+
+/*
+ * The new version of AzureIoTHub library change the AzureIoTHubClient signature.
+ * As a temporary solution, we will test the definition of AzureIoTHubVersion, which is only defined 
+ *    in the new AzureIoTHub library version. Once we totally deprecate the last version, we can take 
+ *    the ‘#ifdef’ out.
+ */
+#ifdef AzureIoTHubVersion
+static AzureIoTHubClient iotHubClient;
+#else
+AzureIoTHubClient iotHubClient(sslClient);
+#endif
 
 #ifdef ARDUINO_SAMD_FEATHER_M0
 #define WINC_CS   8
