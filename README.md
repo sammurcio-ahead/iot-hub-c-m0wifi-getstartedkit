@@ -171,26 +171,6 @@ static const char pass[] = "[Your WiFi network WPA password or WEP key]";
 ```
 
 - Replace the placeholders with your WiFi name (SSID), WiFi password, and the device connection string you created at the beginning of this tutorial. 
-- Still in the `remote_monitoring.ino`, you must decide each SSL client this IoT Hub client will use. Make sure that the AzureIoTHubClient.h was included in the beginning of this file:
-
-```
-#include "AzureIoTHubClient.h"
-```
-
-- Look for the follow code. If it is not there, copy it from here.
-
-```
-// change the next line to use on non-Adafruit WINC1500 based boards/shields  
-Adafruit_WINC1500SSLClient sslClient; // for Adafruit WINC150  
-//WiFiSSLClient sslClient;              // for WiFi101  
-//WiFiClientSecure sslClient;           // for ESP8266  
-
-AzureIoTHubClient iotHubClient(sslClient);  
-```
-
-***
-**Note**: If your target board is not Adafruit WINC1500, you must change the sslClient to the most appropriate one.
-***
 
 - Save with `Control-s`
 
@@ -203,6 +183,10 @@ static const char* deviceKey = "[device-key]";
 static const char* hubName = "[hub-name]";
 static const char* hubSuffix = "azure-devices.net";
 ```
+
+***
+**Note**: The "IoT Hub Hostname" in the Remote Monitoring console includes the suffix "azure-devices.net". When you paste the value for hubName you should not include this suffix. For example, if the "IoT Hub Hostname" is "my-device.azure-devices.net", then hubName should be set to "my-device" hubSuffix should be set to "azure-devices.net".
+***
 
 - Save with `Control-s`
 
