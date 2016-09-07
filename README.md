@@ -141,19 +141,19 @@ You will need to install the Feather M0 WiFi board extension for the Arduino IDE
 
 ## 1.6 Install Library Dependencies
 
-For this project, we'll need the following Libraries:
+For this project, we'll need to install the following libraries using the Arduino IDE:
 
- - Adafruit WINC1500 (download it from [here](https://github.com/adafruit/Adafruit_WINC1500))
  - Adafruit BME280
- - Adafuit Sensor Master
  - RTCZero
+ - AzureIoTHub
 
  To install them, click on the `Sketch -> Include Library -> Manage Libraries`. Search for each library using the box in the upper-right to filter your search, click on the found library, and click the "Install" button.
 
- We will also need the latest Azure IoT Library.
+We'll also need to manually install the following libraries:
+ - Adafruit WINC1500 (download it from [here](https://github.com/adafruit/Adafruit_WINC1500))
+ - Adafuit Sensor Master (download it from [here](https://github.com/adafruit/Adafruit_Sensor))
 
- - Download the [library as a zip](https://github.com/arduino-libraries/AzureIoT/archive/master.zip)
- - Extract to `C:\Users\[username]\Documents\Arduino\libraries` (remove any other copies of the library)
+Instructions for manually installing a library can be found [here](https://www.arduino.cc/en/Guide/Libraries).
 
 ***
 **Note**: If you have an earlier version of the IoT library, navigate to your Arduino documents directory. Inside the "Libraries" folder, there will be a number of installed libraries. Simply delete the `AzureIoT` folder.
