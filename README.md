@@ -577,6 +577,15 @@ static const char* connectionString = "[Device Connection String]";
 - Replace the placeholders with your WiFi name (SSID), WiFi password, and the device connection string you created at the beginning of this tutorial. 
 - Save with `Control-s`
 
+- In the same project, click on the `rem_ctrl_http.c` tab to see that file.
+- Look for the following lines of code:
+
+```
+static const char DeviceId[] = "[Device Name]";
+```
+
+- Replace the placeholders with your Device ID you created at the beginning of this tutorial. 
+- Save with `Control-s`
 
 ## 2.12 Build Your Command Center Sample
 
