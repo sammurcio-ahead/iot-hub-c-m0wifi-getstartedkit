@@ -18,6 +18,7 @@
 
 #include "rem_ctrl_http.h"
 
+static const char DeviceId[] = "[Device Name]";
 
 static char connectionString[MAX_CONNECTION_STRING_LEN + 1];
 static int redLedPin = 12;
@@ -232,7 +233,7 @@ void rem_ctrl_http_send_data(float Temp_c__f, float Pres_hPa__f, float Humi_pct_
     timeNow = (int)time(NULL);
     sprintf(buff, "%d", timeNow);
     
-    myWeather->DeviceId = "FeatherM0_w_BME280";
+    myWeather->DeviceId = DeviceId;
     myWeather->MTemperature = Temp_c__f;
     myWeather->Pressure = Pres_hPa__f;
     myWeather->Humidity = Humi_pct__f;
