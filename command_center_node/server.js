@@ -59,10 +59,11 @@ app.get('/api/temperatures', function(req, res) {
     var query = new azure.TableQuery()
         .select(['eventtime', 'temperaturereading', 'deviceid'])
         .where('PartitionKey eq ? and eventtime >= ?', deviceId, Date.now() - 1000);
-        if(result.entries != null) { 
-             res.json(result.entries.slice(-10)); 
-     } 
-
+    tableSvc.queryEntities(storageTable, query, null, function(err, result, response) {
+        if (result.entries != null) {
+        res.json(result.entries.slice(-10));
+        }
+    })
 })
 
 var completedCallback = function(err, res) {
