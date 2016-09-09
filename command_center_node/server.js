@@ -55,16 +55,16 @@ app.get('/api/alerts', function(req, res) {
     res.json(alerts);
 });
 
-app.get('/api/temperatures', function(req, res) {
-    var query = new azure.TableQuery()
-        .select(['eventtime', 'temperaturereading', 'deviceid'])
-        .where('PartitionKey eq ? and eventtime >= ?', deviceId, Date.now() - 1000);
-    tableSvc.queryEntities(storageTable, query, null, function(err, result, response) {
-        if (result.entries != null) {
-        res.json(result.entries.slice(-10));
-        }
-    })
-})
+app.get('/api/temperatures', function(req, res) { 
+    var query = new azure.TableQuery() 
+        .select(['eventtime', 'temperaturereading', 'deviceid']) 
+        .where('PartitionKey eq ?', deviceId); 
+    tableSvc.queryEntities(storageTable, query, null, function(err, result, response) { 
+        if (result.entries != null) { 
+           res.json(result.entries.slice(-10)); 
+        } 
+    }) 
+}) 
 
 var completedCallback = function(err, res) {
     if (err) { console.log(err); }
