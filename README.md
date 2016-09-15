@@ -4,7 +4,7 @@ platforms: arduino
 author: hegate
 ---
 
-# Get Started with Microsoft Azure IoT Starter Kit - Adafruit Feather M0 WiFi
+# Get Started with Microsoft Azure IoT Starter Kit - Adafruit Feather M0 WiFi (Arduino-compatible)
 
 This page contains technical information to help you get familiar with Azure IoT using the Azure IoT Starter Kit - Feather M0 WiFi. You will find two tutorials that will walk you through different scenarios: the first tutorial will show you how to connect your Azure IoT Starter kit to our Remote Monitoring preconfigured solution from Azure IoT Suite. In the second tutorial, you will leverage Azure IoT services to create your own IoT architecture.
 
