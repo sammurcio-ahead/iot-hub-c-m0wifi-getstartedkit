@@ -139,6 +139,19 @@ void remote_monitoring_run(void)
             config.iotHubName = hubName;
             config.iotHubSuffix = hubSuffix;
             config.protocol = HTTP_Protocol;
+            
+            /*
+             * The new version of AzureIoTHub library introduces this new deviceSasToken parameter. Once we are 
+             *    not using it on this sample, we must initialize with NULL, otherwise IoTHubClient_LL_Create 
+             *    will fail.
+             * As a temporary solution, we will test the definition of AzureIoTHubVersion, which is only defined 
+             *    in the new AzureIoTHub library version. Once we totally deprecate the last version, we can take 
+             *    the `#ifdef` out.
+             */
+#ifdef AzureIoTHubVersion
+            config.deviceSasToken = NULL;
+            config.protocolGatewayHostName = NULL;
+#endif
 
             iotHubClientHandle = IoTHubClient_LL_Create(&config);
             if (iotHubClientHandle == NULL)
