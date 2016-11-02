@@ -11,6 +11,11 @@ static const char* deviceKey = "[device-key]";
 static const char* hubName = "[hub-name]";
 static const char* hubSuffix = "azure-devices.net";
 
+/* CODEFIRST_OK is the new name for IOT_AGENT_OK. The follow #ifndef helps during the name migration. Remove it when the migration ends. */
+#ifndef  IOT_AGENT_OK
+#define  IOT_AGENT_OK CODEFIRST_OK
+#endif // ! IOT_AGENT_OK
+
 // Define the Model
 BEGIN_NAMESPACE(Contoso);
 
