@@ -21,6 +21,9 @@
 #include "remote_monitoring.h"
 #include "NTPClient.h"
 #include <AzureIoTHub.h>
+#ifdef AzureIoTUtilityVersion
+#include <AzureIoTProtocol_HTTP.h>
+#endif
 
 // change the next line to use on non-Adafruit WINC1500 based boards/shields  
 Adafruit_WINC1500SSLClient sslClient; // for Adafruit WINC150  

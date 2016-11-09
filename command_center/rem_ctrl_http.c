@@ -18,6 +18,11 @@
 
 #include "rem_ctrl_http.h"
 
+/* CODEFIRST_OK is the new name for IOT_AGENT_OK. The follow #ifndef helps during the name migration. Remove it when the migration ends. */
+#ifndef  IOT_AGENT_OK
+#define  IOT_AGENT_OK CODEFIRST_OK
+#endif // ! IOT_AGENT_OK
+
 static const char DeviceId[] = "[Device Name]";
 
 static char connectionString[MAX_CONNECTION_STRING_LEN + 1];
@@ -43,8 +48,6 @@ DECLARE_MODEL(
 END_NAMESPACE(RemoteMonitorExample);
 BME280_data* myWeather = NULL;
 IOTHUB_CLIENT_LL_HANDLE iotHubClientHandle = NULL;
-
-DEFINE_ENUM_STRINGS(IOTHUB_CLIENT_CONFIRMATION_RESULT, IOTHUB_CLIENT_CONFIRMATION_RESULT_VALUES);
 
 EXECUTE_COMMAND_RESULT TurnFanOn(BME280_data* device)
 {
