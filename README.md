@@ -25,19 +25,20 @@ This tutorial describes the process of taking your Feather M0 WiFi kit, and usin
 
 ## Table of Contents
 
-- [1.1 Tutorial Overview](#11-tutorial-overview)
-- [1.2 Before Starting](#12-before-starting)
-  - [1.2.1 Required Software](#121-required-software)
-  - [1.2.2 Required Hardware](#122-required-hardware)
-- [1.3 Create a New Azure IoT Suite Remote Monitoring solution and Add Device](#13-create-a-new-azure-iot-suite-remote-monitoring-solution-and-add-device)
-- [1.4 Connect the BME280 Sensor Module to your Device](#14-connect-the-bme280-sensor-module-to-your-device)
-- [1.5 Add the Feather M0 WiFi to the Arduino IDE](#15-add-the-feather-m0-wifi-to-the-arduino-ide)
-- [1.6 Install Library Dependencies](#16-install-library-dependencies)
-- [1.7 Modify the Remote Monitoring Sample](#17-modify-the-remote-monitoring-sample)
-- [1.8 Build Your Remote Monitoring Sample](#18-build-your-remote-monitoring-sample)
-- [1.9 View the Sensor Data from the Remote Monitoring Portal](#19-view-the-sensor-data-from-the-remote-monitoring-portal)
-- [1.10 Next steps](#110-next-steps)
+- [1.1 Tutorial Overview](#section1.1)
+- [1.2 Before Starting](#section1.2)
+  - [1.2.1 Required Software](#section1.2.1)
+  - [1.2.2 Required Hardware](#section1.2.2)
+- [1.3 Create a New Azure IoT Suite Remote Monitoring solution and Add Device](#section1.3)
+- [1.4 Connect the BME280 Sensor Module to your Device](#section1.4)
+- [1.5 Add the Feather M0 WiFi to the Arduino IDE](#section1.5)
+- [1.6 Install Library Dependencies](#section1.6)
+- [1.7 Modify the Remote Monitoring Sample](#section1.7)
+- [1.8 Build Your Remote Monitoring Sample](#section1.8)
+- [1.9 View the Sensor Data from the Remote Monitoring Portal](#section1.9)
+- [1.10 Next steps](#section1.10)
 
+<a name="section1.1" />
 ## 1.1 Tutorial Overview
 
 In this tutorial, you'll be doing the following:
@@ -45,19 +46,23 @@ In this tutorial, you'll be doing the following:
 - Setting your device and sensors up so that it can communicate with both your computer, and Azure IoT.
 - Updating the device code sample to include our connection data and send it to Azure IoT to be viewed remotely.
 
+<a name="section1.2" />
 ## 1.2 Before Starting
 
+<a name="section1.2.1" />
 ### 1.2.1 Required Software
 
 - Arduino IDE, version 1.6.8. from www.arduino.cc (Earlier versions will not work with the AzureIoT library)
 - Sensor interface library from Adafruit: https://github.com/adafruit/Adafruit_BME280_Library/archive/master.zip
 
+<a name="section1.2.2" />
 ### 1.2.2 Required Hardware
 
 - Adafruit Feather M0 WiFi kit
   - A microB USB cable
   - A desktop or laptop computer which can run **Arduino IDE 1.6.8**
 
+<a name="section1.3" />
 ## 1.3 Create a New Azure IoT Suite Remote Monitoring solution and Add Device
 
 - Log in to [Azure IoT Suite](https://www.azureiotsuite.com/)  with your Microsoft account and click **Create a New Preconfigured Solution**
@@ -102,6 +107,7 @@ In this tutorial, you'll be doing the following:
  - https://azure.microsoft.com/en-us/documentation/articles/iot-suite-remote-monitoring-sample-walkthrough/
  - https://azure.microsoft.com/en-us/documentation/articles/iot-suite-connecting-devices/
 
+<a name="section1.4" />
 ## 1.4 Connect the BME280 Sensor Module to your Device
 
 - Using [this image](https://github.com/Azure-Samples/iot-hub-c-m0wifi-getstartedkit/blob/master/img/feather_m0_wifi_remote_monitoring.png?raw=true) as a reference, connect your BME280 and Feather M0 WiFi to the breadboard
@@ -130,6 +136,7 @@ In this tutorial, you'll be doing the following:
 
 **At the end of your work, your Feather M0 WiFi should be connected to the sensor. We'll test it in the next sections.**
 
+<a name="section1.5" />
 ## 1.5 Add the Feather M0 WiFi to the Arduino IDE
 
 You will need to install the Feather M0 WiFi board extension for the Arduino IDE. This takes two steps:
@@ -139,6 +146,7 @@ You will need to install the Feather M0 WiFi board extension for the Arduino IDE
 2) Then continue with [Using Arduino IDE](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/using-with-arduino-ide), and see how to make the Feather M0 WiFi board selectable under the **Tools** menu, and how to get the Blink sketch to run.
  - If you have issues uploading to the Feather M0, click the RST button twice (double-click) to get back into the bootloader.
 
+<a name="section1.6" />
 ## 1.6 Install Library Dependencies
 
 For this project, we'll need to install the following libraries using the Arduino IDE:
@@ -159,6 +167,7 @@ Instructions for manually installing a library can be found [here](https://www.a
 **Note**: If you have an earlier version of the IoT library, navigate to your Arduino documents directory. Inside the "Libraries" folder, there will be a number of installed libraries. Simply delete the `AzureIoT` folder.
 ***
 
+<a name="section1.7" />
 ## 1.7 Modify the Remote Monitoring sample
 
 - Unzip the [example code](https://github.com/Azure-Samples/iot-hub-c-m0wifi-getstartedkit/archive/master.zip), and double-click the file `remote_monitoring.ino` to open the project in the Arduino IDE.
@@ -190,6 +199,7 @@ static const char* hubSuffix = "azure-devices.net";
 
 - Save with `Control-s`
 
+<a name="section1.8" />
 ## 1.8 Build Your Remote Monitoring Sample
 
 - Double-click the reset button (located by the USB input) on the Feather M0 WiFi to put it in boot-loader mode. The red LED will fade in and out to show bootload mode.
@@ -206,6 +216,7 @@ static const char* hubSuffix = "azure-devices.net";
 **Note**: When first starting you will likely see a “Fetching NTP epoch time failed” error – This is normal, and it trying to sync with Azure. This can take even up to 30 seconds to find a NTP server to sync with. One it is synced, it should start transmitting from there.
 ***
 
+<a name="section1.9" />
 ## 1.9 View the Sensor Data from the Remote Monitoring Portal
 
 - Once you have the sample running, visit your dashboard by visiting azureiotsuite.com and clicking “Launch” on your solution
@@ -216,6 +227,7 @@ static const char* hubSuffix = "azure-devices.net";
 **Note:** Make sure you delete or **stop** your remote monitoring solution once you have completed this to avoid unnecessary Azure consumption!  (See: [Troubleshooting](#troubleshooting))
 ***
 
+<a name="section1.10" />
 ## 1.10 Next steps
 
 Please visit our [Azure IoT Dev Center](https://azure.microsoft.com/en-us/develop/iot/) for more samples and documentation on Azure IoT.
