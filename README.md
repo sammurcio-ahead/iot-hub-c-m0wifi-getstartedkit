@@ -239,23 +239,23 @@ This tutorial describes the process of taking your Microsoft Azure IoT Starter K
 
 ## Table of Contents
 
-- [2.1 Tutorial Overview](#21-tutorial-overview)
-- [2.2 Before Starting](#22-before-starting)
-  - [2.2.1 Required Software](#221-required-software)
-  - [2.2.2 Required Hardware](#222-required-hardware)
-- [2.3 Connect the Sensor Module to your Device](#23-connect-the-sensor-module-to-your-device)
-- [2.4 Create a New Microsoft Azure IoT Hub and Add Device](#24-create-a-new-microsoft-azure-iot-hub-and-add-device)
-- [2.5 Create an Event Hub](#25-create-an-event-hub)
-- [2.6 Create a Storage Account for Table Storage](#26-create-a-storage-account-for-table-storage)
-- [2.7 Create a Stream Analytics job to Save IoT Data in Table Storage and Raise Alerts](#26-create-a-stream-analytics-job-to-save-iot-data-in-table-storage-and-raise-alerts)
-- [2.8 Node Application Setup](#28-node-application-setup)
-- [2.9 Add the Feather M0 WiFi to the Arduino IDE](#29-add-the-feather-m0-wifi-to-the-arduino-ide)
-- [2.10 Install Library Dependencies](#210-install-library-dependencies)
-- [2.11 Modify the Command Center Sample](#211-modify-the-command-center-sample)
-- [2.12 Build Your Command Center Sample](#212-build-your-command-center-sample)
-- [2.13 Next steps](#213-next-steps)
+- [2.1 Tutorial Overview](#section2.1)
+- [2.2 Before Starting](#section2.2)
+  - [2.2.1 Required Software](#section2.2.1)
+  - [2.2.2 Required Hardware](#section2.2.2)
+- [2.3 Connect the Sensor Module to your Device](#section2.3)
+- [2.4 Create a New Microsoft Azure IoT Hub and Add Device](#section2.4)
+- [2.5 Create an Event Hub](#section2.5)
+- [2.6 Create a Storage Account for Table Storage](#section2.6)
+- [2.7 Create a Stream Analytics job to Save IoT Data in Table Storage and Raise Alerts](#section2.7)
+- [2.8 Node Application Setup](#section2.8)
+- [2.9 Add the Feather M0 WiFi to the Arduino IDE](#section2.9)
+- [2.10 Install Library Dependencies](#section2.10)
+- [2.11 Modify the Command Center Sample](#section2.11)
+- [2.12 Build Your Command Center Sample](#section2.12)
+- [2.13 Next steps](#section2.13)
 
-
+<a name="section2.1" />
 ## 2.1 Tutorial Overview
 
 This tutorial has the following steps:
@@ -272,8 +272,10 @@ Here is a breakdown of the data flow:
 
 The end result will be a functional command center where you can view the history of your device's sensor data, a history of alerts, and send commands back to the device.
 
+<a name="section2.2" />
 ## 2.2 Before Starting
 
+<a name="section2.2.1" />
 ### 2.2.1 Required Software
 
 - [Git](https://git-scm.com/downloads) - For cloning the required repositories
@@ -281,11 +283,13 @@ The end result will be a functional command center where you can view the histor
 - Arduino IDE, version 1.6.8. (Earlier versions will not work with the Azure IoT library)
 - Sensor interface library from Adafruit. [https://github.com/adafruit/Adafruit_BME280_Library/archive/master.zip](https://github.com/adafruit/Adafruit_BME280_Library/archive/master.zip)
 
+<a name="section2.2.2" />
 ### 2.2.2 Required Hardware
 - Adafruit Feather M0 WiFi IoT kit
   - A microB USB cable
   - A desktop or laptop computer which can run **Arduino IDE 1.6.8**
 
+<a name="section2.3" />
 ## 2.3 Connect the Sensor Module to your Device
 
 - Using [this image](https://github.com/Azure-Samples/iot-hub-c-m0wifi-getstartedkit/blob/master/img/feather_m0_wifi_command_control.png?raw=true) as a reference, connect your BME280 and Feather M0 WiFi to the breadboard
@@ -324,6 +328,7 @@ The end result will be a functional command center where you can view the histor
 
 **At the end of your work, your Feather M0 WiFi should be connected with a working sensor. We'll test it in the next sections.**
 
+<a name="section2.4" />
 ## 2.4 Create a New Microsoft Azure IoT Hub and Add Device
 
 - To create your Microsoft Azure IoT Hub and add a device, follow the instructions outlined in the [Setup IoT Hub Microsoft Azure Iot SDK page](https://github.com/Azure/azure-iot-sdks/blob/master/doc/setup_iothub.md).
@@ -333,7 +338,7 @@ The end result will be a functional command center where you can view the histor
 **Note:** Make sure to copy down the names and connection strings mentioned into a text document for reference later.
 ***
 
-
+<a name="section2.5" />
 ## 2.5 Create an Event Hub
 
 Event Hub is an Azure IoT publish-subscribe service that can ingest millions of events per second and stream them into multiple applications, services or devices.
@@ -362,6 +367,7 @@ Event Hub is an Azure IoT publish-subscribe service that can ingest millions of 
 - From the your IoT Hub Settings (The Resource that has connected dots) on the [Microsoft Azure Portal](https://portal.azure.com/), click the **Messaging blade** (found in your settings), write down the _Event Hub-compatible name_
 - Look at the _Event-hub-compatible Endpoint_, and write down this part: sb://**thispart**.servicebus.windows.net/ we will call this one the _IoTHub EventHub-compatible namespace_
 
+<a name="section2.6" />
 ## 2.6 Create a Storage Account for Table Storage
 
 Now we will create a service to store our data in the cloud.
@@ -376,6 +382,7 @@ Now we will create a service to store our data in the cloud.
     - Location: `Your choice`
 - Once the account is created, find it in the **resources blade** or click on the **pinned tile**, go to **Settings**, **Keys**, and write down the _primary connection string_.
 
+<a name="section2.7" />
 ## 2.7 Create a Stream Analytics job to Save IoT Data in Table Storage and Raise Alerts
 Stream Analytics is an Azure IoT service that streams and analyzes data in the cloud. We'll use it to process data coming from your device.
 
@@ -453,6 +460,7 @@ WHERE MTemperature>25
 **Note:** Make sure to **stop** your Command Center jobs once you have when you take a break or finish to avoid unnecessary Azure consumption!  (See: [Troubleshooting](#troubleshooting))
 ***
 
+<a name="section2.8" />
 ## 2.8 Node Application Setup
 
  - If you do not have it already, install Node.js and NPM.
@@ -545,6 +553,7 @@ To deploy this project to the cloud using Azure, you can reference [Creating a N
 
 Next, we will update your device so that it can interact with all the things you just created.
 
+<a name="section2.9" />
 ## 2.9 Add the Feather M0 WiFi to the Arduino IDE
 
 You will need to install the Feather M0 WiFi board extension for the Arduino IDE. This takes two steps:
@@ -553,6 +562,7 @@ You will need to install the Feather M0 WiFi board extension for the Arduino IDE
 
 2) Then continue with [Using Arduino IDE](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/using-with-arduino-ide), and see how to make the Feather M0 WiFi board selectable under the **Tools** menu, and how to get the Blink sketch to run.
 
+<a name="section2.10" />
 ## 2.10 Install Library Dependencies
 
 For this project, we'll need to install the following libraries using the Arduino IDE:
@@ -573,7 +583,7 @@ Instructions for manually installing a library can be found [here](https://www.a
 **Note**: If you have an earlier version of the IoT library, navigate to your Arduino documents directory. Inside the "Libraries" folder, there will be a number of installed libraries. Simply delete the `AzureIoT` folder.
 ***
 
-
+<a name="section2.11" />
 ## 2.11 Modify the Command Center sample
 
 - Unzip the example code, and double-click the file `command_center.ino` to open the project in the Arduino IDE.
@@ -599,6 +609,7 @@ static const char DeviceId[] = "[Device Name]";
 - Replace the placeholders with your Device ID you created at the beginning of this tutorial. 
 - Save with `Control-s`
 
+<a name="section2.12" />
 ## 2.12 Build Your Command Center Sample
 
 - Double-click the reset button on the Feather M0 WiFi to put it in boot-loader mode. The red LED will fade in and out to show bootload mode.
@@ -619,6 +630,7 @@ Head back to your Node application and you will have a fully functional command 
 **Note:** Make sure to **stop** your Command Center jobs once you have when you finish to avoid unnecessary Azure consumption!  (See: [Troubleshooting](#troubleshooting))
 ***
 
+<a name="section2.3" />
 ## 2.13 Next steps
 
 Please visit our [Azure IoT Dev Center](https://azure.microsoft.com/en-us/develop/iot/) for more samples and documentation on Azure IoT.
