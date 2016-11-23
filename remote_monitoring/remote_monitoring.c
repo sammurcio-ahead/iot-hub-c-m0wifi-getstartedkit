@@ -1,20 +1,18 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+#include "iot_configs.h"
+
 #include "AzureIoTHub.h"
 #include "sdk/schemaserializer.h"
 #include "bme280.h"
-
-
-static const char* deviceId = "[device-id]";
-static const char* deviceKey = "[device-key]";
-static const char* hubName = "[hub-name]";
-static const char* hubSuffix = "azure-devices.net";
 
 /* CODEFIRST_OK is the new name for IOT_AGENT_OK. The follow #ifndef helps during the name migration. Remove it when the migration ends. */
 #ifndef  IOT_AGENT_OK
 #define  IOT_AGENT_OK CODEFIRST_OK
 #endif // ! IOT_AGENT_OK
+
+#define MAX_DEVICE_ID_SIZE  20
 
 // Define the Model
 BEGIN_NAMESPACE(Contoso);
@@ -88,6 +86,68 @@ static void sendMessage(IOTHUB_CLIENT_LL_HANDLE iotHubClientHandle, const unsign
     free((void*)buffer);
 }
 
+static size_t GetDeviceId(const char* connectionString, char* deviceID, size_t size)
+{
+    size_t result;
+    const char* runStr = connectionString;
+    char ustate = 0;
+    char* start = NULL;
+
+    if (runStr == NULL)
+    {
+        result = 0;
+    }
+    else
+    {
+        while (*runStr != '\0')
+        {
+            if (ustate == 0)
+            {
+                if (strncmp(runStr, "DeviceId=", 9) == 0)
+                {
+                    runStr += 9;
+                    start = runStr;
+                }
+                ustate = 1;
+            }
+            else
+            {
+                if (*runStr == ';')
+                {
+                    if (start == NULL)
+                    {
+                        ustate = 0;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                runStr++;
+            }
+        }
+
+        if (start == NULL)
+        {
+            result = 0;
+        }
+        else
+        {
+            result = runStr - start;
+            if (deviceID != NULL)
+            {
+                for (size_t i = 0; ((i < size - 1) && (start < runStr)); i++)
+                {
+                    *deviceID++ = *start++;
+                }
+                *deviceID = '\0';
+            }
+        }
+    }
+
+    return result;
+}
+
 /*this function "links" IoTHub to the serialization library*/
 static IOTHUBMESSAGE_DISPOSITION_RESULT IoTHubMessage(IOTHUB_MESSAGE_HANDLE message, void* userContextCallback)
 {
@@ -136,29 +196,16 @@ void remote_monitoring_run(void)
         }
         else
         {
-            IOTHUB_CLIENT_CONFIG config;
             IOTHUB_CLIENT_LL_HANDLE iotHubClientHandle;
 
-            config.deviceId = deviceId;
-            config.deviceKey = deviceKey;
-            config.iotHubName = hubName;
-            config.iotHubSuffix = hubSuffix;
-            config.protocol = HTTP_Protocol;
-            
-            /*
-             * The new version of AzureIoTHub library introduces this new deviceSasToken parameter. Once we are 
-             *    not using it on this sample, we must initialize with NULL, otherwise IoTHubClient_LL_Create 
-             *    will fail.
-             * As a temporary solution, we will test the definition of AzureIoTHubVersion, which is only defined 
-             *    in the new AzureIoTHub library version. Once we totally deprecate the last version, we can take 
-             *    the `#ifdef` out.
-             */
-#ifdef AzureIoTHubVersion
-            config.deviceSasToken = NULL;
-            config.protocolGatewayHostName = NULL;
+#if defined(IOT_CONFIG_MQTT)
+            iotHubClientHandle = IoTHubClient_LL_CreateFromConnectionString(IOT_CONFIG_CONNECTION_STRING, MQTT_Protocol);
+#elif defined(IOT_CONFIG_HTTP)
+            iotHubClientHandle = IoTHubClient_LL_CreateFromConnectionString(IOT_CONFIG_CONNECTION_STRING, HTTP_Protocol);
+#else
+            iotHubClientHandle = NULL;
 #endif
 
-            iotHubClientHandle = IoTHubClient_LL_Create(&config);
             if (iotHubClientHandle == NULL)
             {
                 LogInfo("Failed on IoTHubClient_CreateFromConnectionString\r\n");
@@ -188,6 +235,12 @@ void remote_monitoring_run(void)
                     }
                     else
                     {
+
+                        char deviceId[MAX_DEVICE_ID_SIZE];
+                        if (GetDeviceId(IOT_CONFIG_CONNECTION_STRING, deviceId, MAX_DEVICE_ID_SIZE) > 0)
+                        {
+                            LogInfo("deviceId=%s", deviceId);
+                        }
 
                         /* send the device info upon startup so that the cloud app knows
                         what commands are available and the fact that the device is up */
@@ -240,10 +293,10 @@ void remote_monitoring_run(void)
                                 float Humi;
                                 getNextSample(&Temp, &Humi);
                                 //thermostat->Temperature = 50 + (rand() % 10 + 2);
-                                thermostat->Temperature = (int)round(Temp);
+                                thermostat->Temperature = (Temp>600)?600:(int)round(Temp);
                                 thermostat->ExternalTemperature = 55 + (rand() % 5 + 2);
                                 //thermostat->Humidity = 50 + (rand() % 8 + 2);
-                                thermostat->Humidity = (int)round(Humi);
+                                thermostat->Humidity = (Humi>100)?100:(int)round(Humi);
                                 currentCycle = 0;
                                 unsigned char*buffer;
                                 size_t bufferSize;

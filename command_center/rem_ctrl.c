@@ -12,11 +12,11 @@
 #else
 #include "serializer.h"
 #include "iothub_client_ll.h"
-#include "iothubtransporthttp.h"
+#include "iothubtransportmqtt.h"
 #include "threadapi.h"
 #endif
 
-#include "rem_ctrl_http.h"
+#include "rem_ctrl.h"
 
 /* CODEFIRST_OK is the new name for IOT_AGENT_OK. The follow #ifndef helps during the name migration. Remove it when the migration ends. */
 #ifndef  IOT_AGENT_OK
@@ -151,7 +151,7 @@ static IOTHUBMESSAGE_DISPOSITION_RESULT IoTHubMessage(IOTHUB_MESSAGE_HANDLE mess
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 int Init_level__i = 0;
-int rem_ctrl_http_init(void)
+int rem_ctrl_init(void)
 {
     digitalWrite(redLedPin, LOW);
     pinMode(redLedPin, OUTPUT);
@@ -167,7 +167,7 @@ int rem_ctrl_http_init(void)
     {
         Init_level__i = 1;
 
-        iotHubClientHandle = IoTHubClient_LL_CreateFromConnectionString(connectionString, HTTP_Protocol);
+        iotHubClientHandle = IoTHubClient_LL_CreateFromConnectionString(connectionString, MQTT_Protocol);
         if (iotHubClientHandle == NULL)
         {
             (void)printf("Failed on IoTHubClient_LL_Create\r\n");
@@ -207,7 +207,7 @@ int rem_ctrl_http_init(void)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-void rem_ctrl_http_deinit(void)
+void rem_ctrl_deinit(void)
 {
     if (Init_level__i >= 3) {
         DESTROY_MODEL_INSTANCE(myWeather);
@@ -228,7 +228,7 @@ void rem_ctrl_http_deinit(void)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-void rem_ctrl_http_send_data(float Temp_c__f, float Pres_hPa__f, float Humi_pct__f)
+void rem_ctrl_send_data(float Temp_c__f, float Pres_hPa__f, float Humi_pct__f)
 {
     // Don't run this function unless the initialization succeeded.
     if (Init_level__i < 4) return;
@@ -273,7 +273,7 @@ void rem_ctrl_http_send_data(float Temp_c__f, float Pres_hPa__f, float Humi_pct_
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-void rem_ctrl_http_run(void)
+void rem_ctrl_run(void)
 {
     IoTHubClient_LL_DoWork(iotHubClientHandle);
 }

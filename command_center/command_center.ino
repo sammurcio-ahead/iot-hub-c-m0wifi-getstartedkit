@@ -21,12 +21,10 @@
 #endif
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
-#include "rem_ctrl_http.h"
+#include "rem_ctrl.h"
 #include "NTPClient.h"
 #include <AzureIoTHub.h>
-#ifdef AzureIoTUtilityVersion
-#include <AzureIoTProtocol_HTTP.h>
-#endif
+#include <AzureIoTProtocol_MQTT.h>
 
 #ifdef ARDUINO_SAMD_FEATHER_M0
 #define WINC_CS   8
@@ -128,7 +126,7 @@ void setup() {
     Serial.println("Unable to set connection string. (too long?)");
   }
 
-  int Init_result__i = rem_ctrl_http_init();
+  int Init_result__i = rem_ctrl_init();
   if (Init_result__i < 4)
   {
     Serial.println("Unable to initialize the Azure connection. Halting.");
@@ -156,13 +154,13 @@ void loop() {
     float Pres_hPa__f = bme.readPressure() / 100;
     float Humi_pct__f = bme.readHumidity();
     printf("Temp=%.2f, Pres=%.2f, Humi=%.2f\n", Temp_c__f, Pres_hPa__f, Humi_pct__f);
-    rem_ctrl_http_send_data(Temp_c__f, Pres_hPa__f, Humi_pct__f);
+    rem_ctrl_send_data(Temp_c__f, Pres_hPa__f, Humi_pct__f);
 
     Sensor_read_next_ms__u32 = Curr_time_ms__u32 + Sensor_read_period_ms__u32;
   }
   
   if (IS_TASK_TIME(Curr_time_ms__u32, Azure_io_update_next_ms__u32)) {
-    rem_ctrl_http_run();
+    rem_ctrl_run();
 
     Azure_io_update_next_ms__u32 = Curr_time_ms__u32 + Azure_io_update_period_ms__u32;
   }

@@ -1,7 +1,9 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-// Use Arduino IDE 1.6.8 or later.
+// Please Use Arduino IDE 1.6.8 or later.
+
+#include "iot_configs.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -18,28 +20,15 @@
 #elif defined(ARDUINO_SAMD_ZERO) || defined(ARDUINO_SAMD_MKR1000)
 #include <WiFi101.h>
 #endif
+
 #include "remote_monitoring.h"
 #include "NTPClient.h"
+
 #include <AzureIoTHub.h>
-#ifdef AzureIoTUtilityVersion
-#include <AzureIoTProtocol_HTTP.h>
-#endif
-
-// change the next line to use on non-Adafruit WINC1500 based boards/shields  
-Adafruit_WINC1500SSLClient sslClient; // for Adafruit WINC150  
-//WiFiSSLClient sslClient;              // for WiFi101  
-//WiFiClientSecure sslClient;           // for ESP8266  
-
-/*
- * The new version of AzureIoTHub library change the AzureIoTHubClient signature.
- * As a temporary solution, we will test the definition of AzureIoTHubVersion, which is only defined 
- *    in the new AzureIoTHub library version. Once we totally deprecate the last version, we can take 
- *    the ‘#ifdef’ out.
- */
-#ifdef AzureIoTHubVersion
-static AzureIoTHubClient iotHubClient;
-#else
-AzureIoTHubClient iotHubClient(sslClient);
+#if defined(IOT_CONFIG_MQTT)
+    #include <AzureIoTProtocol_MQTT.h>
+#elif defined(IOT_CONFIG_HTTP)
+    #include <AzureIoTProtocol_HTTP.h>
 #endif
 
 #ifdef ARDUINO_SAMD_FEATHER_M0
@@ -53,8 +42,8 @@ Adafruit_WINC1500 WiFi(WINC_CS, WINC_IRQ, WINC_RST);
 #endif
 
 
-static const char ssid[] = "[Your WiFi network SSID or name]";
-static const char pass[] = "[Your WiFi network WPA password or WEP key]";
+static char ssid[] = IOT_CONFIG_WIFI_SSID;
+static char pass[] = IOT_CONFIG_WIFI_PASSWORD;
 
 int status = WL_IDLE_STATUS;
 
@@ -89,7 +78,7 @@ void initSerial() {
 
 void initWifi() {
     // Attempt to connect to Wifi network:
-    Serial.print("Attempting to connect to SSID: ");
+    Serial.print("\r\n\r\nAttempting to connect to SSID: ");
     Serial.println(ssid);
 
     // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
@@ -100,7 +89,7 @@ void initWifi() {
         Serial.print(".");
     }
 
-    Serial.println("Connected to wifi");
+    Serial.println("\r\nConnected to wifi");
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
