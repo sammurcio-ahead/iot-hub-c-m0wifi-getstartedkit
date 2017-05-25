@@ -41,23 +41,6 @@ static const char ssid[] = "[Your WiFi network SSID or name]";
 static const char pass[] = "[Your WiFi network WPA password or WEP key]";
 static const char* connectionString = "[Device Connection String]";
 
-// Choose the sslClient for Adafruit WINC1500.
-Adafruit_WINC1500SSLClient sslClient;
-
-
-/*
- * The new version of AzureIoTHub library changed the AzureIoTHubClient signature.
- * As a temporary solution, we will test the definition of AzureIoTHubVersion, which is only defined 
- *    in the new AzureIoTHub library version. Once we totally deprecate the last version, we can take 
- *    the ‘#ifdef’ out.
- */
-#ifdef AzureIoTHubVersion
-static AzureIoTHubClient iotHubClient;
-#else
-AzureIoTHubClient iotHubClient(sslClient);
-#endif
-
-
 // The connection string is the one which begins with HostName=... and contains the DeviceId
 // and SharedAccessKey for this particular Thing on the Internet.
 
