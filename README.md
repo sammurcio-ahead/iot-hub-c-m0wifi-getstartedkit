@@ -19,6 +19,7 @@ You can choose to start with whichever tutorial you want to. If you've never wor
 - [Using Microsoft Azure IoT Services to Identify Temperature Anomalies](#using-microsoft-azure-iot)
 
 <a name="run-on-device" />
+
 # Running a Simple Remote Monitoring Solution on Feather M0 WiFi (Arduino-compatible)
 
 This tutorial describes the process of taking your Feather M0 WiFi kit, and using it to develop a temperature, humidity and pressure reader that can communicate with the cloud using the  Microsoft Azure IoT SDK. 
@@ -39,6 +40,7 @@ This tutorial describes the process of taking your Feather M0 WiFi kit, and usin
 - [1.10 Next steps](#section1.10)
 
 <a name="section1.1" />
+
 ## 1.1 Tutorial Overview
 
 In this tutorial, you'll be doing the following:
@@ -47,15 +49,18 @@ In this tutorial, you'll be doing the following:
 - Updating the device code sample to include our connection data and send it to Azure IoT to be viewed remotely.
 
 <a name="section1.2" />
+
 ## 1.2 Before Starting
 
 <a name="section1.2.1" />
+
 ### 1.2.1 Required Software
 
 - Arduino IDE, version 1.6.8. from www.arduino.cc (Earlier versions will not work with the AzureIoT library)
 - Sensor interface library from Adafruit: https://github.com/adafruit/Adafruit_BME280_Library/archive/master.zip
 
 <a name="section1.2.2" />
+
 ### 1.2.2 Required Hardware
 
 - Adafruit Feather M0 WiFi kit
@@ -63,6 +68,7 @@ In this tutorial, you'll be doing the following:
   - A desktop or laptop computer which can run **Arduino IDE 1.6.8**
 
 <a name="section1.3" />
+
 ## 1.3 Create a New Azure IoT Suite Remote Monitoring solution and Add Device
 
 - Log in to [Azure IoT Suite](https://www.azureiotsuite.com/)  with your Microsoft account and click **Create a New Preconfigured Solution**
@@ -108,6 +114,7 @@ In this tutorial, you'll be doing the following:
  - https://azure.microsoft.com/en-us/documentation/articles/iot-suite-connecting-devices/
 
 <a name="section1.4" />
+
 ## 1.4 Connect the BME280 Sensor Module to your Device
 
 - Using [this image](https://github.com/Azure-Samples/iot-hub-c-m0wifi-getstartedkit/blob/master/img/feather_m0_wifi_remote_monitoring.png?raw=true) as a reference, connect your BME280 and Feather M0 WiFi to the breadboard
@@ -137,6 +144,7 @@ In this tutorial, you'll be doing the following:
 **At the end of your work, your Feather M0 WiFi should be connected to the sensor. We'll test it in the next sections.**
 
 <a name="section1.5" />
+
 ## 1.5 Add the Feather M0 WiFi to the Arduino IDE
 
 You will need to install the Feather M0 WiFi board extension for the Arduino IDE. This takes two steps:
@@ -147,6 +155,7 @@ You will need to install the Feather M0 WiFi board extension for the Arduino IDE
  - If you have issues uploading to the Feather M0, click the RST button twice (double-click) to get back into the bootloader.
 
 <a name="section1.6" />
+
 ## 1.6 Install Library Dependencies
 
 For this project, we'll need to install the following libraries using the Arduino IDE:
@@ -174,6 +183,7 @@ Instructions for manually installing a library can be found [here](https://www.a
 ***
 
 <a name="section1.7" />
+
 ## 1.7 Modify the Remote Monitoring sample
 
 - Unzip the [example code](https://github.com/Azure-Samples/iot-hub-c-m0wifi-getstartedkit/archive/master.zip), and double-click the file `remote_monitoring.ino` to open the project in the Arduino IDE.
@@ -195,6 +205,7 @@ Instructions for manually installing a library can be found [here](https://www.a
 - Save with `Control-s`
 
 <a name="section1.8" />
+
 ## 1.8 Build Your Remote Monitoring Sample
 
 - Double-click the reset button (located by the USB input) on the Feather M0 WiFi to put it in boot-loader mode. The red LED will fade in and out to show bootload mode.
@@ -212,6 +223,7 @@ Instructions for manually installing a library can be found [here](https://www.a
 ***
 
 <a name="section1.9" />
+
 ## 1.9 View the Sensor Data from the Remote Monitoring Portal
 
 - Once you have the sample running, visit your dashboard by visiting azureiotsuite.com and clicking “Launch” on your solution
@@ -223,11 +235,13 @@ Instructions for manually installing a library can be found [here](https://www.a
 ***
 
 <a name="section1.10" />
+
 ## 1.10 Next steps
 
 Please visit our [Azure IoT Dev Center](https://azure.microsoft.com/en-us/develop/iot/) for more samples and documentation on Azure IoT.
 
 <a name="using-microsoft-azure-iot" />
+
 # Using Microsoft Azure IoT Services to Identify Temperature Anomalies
 
 This tutorial describes the process of taking your Microsoft Azure IoT Starter Kit for the Feather M0 WiFi, and using it to develop a temperature and humidity reader that can communicate with the cloud using the  Microsoft Azure IoT SDK.
@@ -251,6 +265,7 @@ This tutorial describes the process of taking your Microsoft Azure IoT Starter K
 - [2.13 Next steps](#section2.13)
 
 <a name="section2.1" />
+
 ## 2.1 Tutorial Overview
 
 This tutorial has the following steps:
@@ -268,9 +283,11 @@ Here is a breakdown of the data flow:
 The end result will be a functional command center where you can view the history of your device's sensor data, a history of alerts, and send commands back to the device.
 
 <a name="section2.2" />
+
 ## 2.2 Before Starting
 
 <a name="section2.2.1" />
+
 ### 2.2.1 Required Software
 
 - [Git](https://git-scm.com/downloads) - For cloning the required repositories
@@ -279,12 +296,14 @@ The end result will be a functional command center where you can view the histor
 - Sensor interface library from Adafruit. [https://github.com/adafruit/Adafruit_BME280_Library/archive/master.zip](https://github.com/adafruit/Adafruit_BME280_Library/archive/master.zip)
 
 <a name="section2.2.2" />
+
 ### 2.2.2 Required Hardware
 - Adafruit Feather M0 WiFi IoT kit
   - A microB USB cable
   - A desktop or laptop computer which can run **Arduino IDE 1.6.8**
 
 <a name="section2.3" />
+
 ## 2.3 Connect the Sensor Module to your Device
 
 - Using [this image](https://github.com/Azure-Samples/iot-hub-c-m0wifi-getstartedkit/blob/master/img/feather_m0_wifi_command_control.png?raw=true) as a reference, connect your BME280 and Feather M0 WiFi to the breadboard
@@ -324,6 +343,7 @@ The end result will be a functional command center where you can view the histor
 **At the end of your work, your Feather M0 WiFi should be connected with a working sensor. We'll test it in the next sections.**
 
 <a name="section2.4" />
+
 ## 2.4 Create a New Microsoft Azure IoT Hub and Add Device
 
 - To create your Microsoft Azure IoT Hub and add a device, follow the instructions outlined in the [Setup IoT Hub Microsoft Azure Iot SDK page](https://github.com/Azure/azure-iot-sdks/blob/master/doc/setup_iothub.md).
@@ -334,6 +354,7 @@ The end result will be a functional command center where you can view the histor
 ***
 
 <a name="section2.5" />
+
 ## 2.5 Create an Event Hub
 
 Event Hub is an Azure IoT publish-subscribe service that can ingest millions of events per second and stream them into multiple applications, services or devices.
@@ -363,6 +384,7 @@ Event Hub is an Azure IoT publish-subscribe service that can ingest millions of 
 - Look at the _Event-hub-compatible Endpoint_, and write down this part: sb://**thispart**.servicebus.windows.net/ we will call this one the _IoTHub EventHub-compatible namespace_
 
 <a name="section2.6" />
+
 ## 2.6 Create a Storage Account for Table Storage
 
 Now we will create a service to store our data in the cloud.
@@ -378,6 +400,7 @@ Now we will create a service to store our data in the cloud.
 - Once the account is created, find it in the **resources blade** or click on the **pinned tile**, go to **Settings**, **Keys**, and write down the _primary connection string_.
 
 <a name="section2.7" />
+
 ## 2.7 Create a Stream Analytics job to Save IoT Data in Table Storage and Raise Alerts
 Stream Analytics is an Azure IoT service that streams and analyzes data in the cloud. We'll use it to process data coming from your device.
 
@@ -456,6 +479,7 @@ WHERE MTemperature>25
 ***
 
 <a name="section2.8" />
+
 ## 2.8 Node Application Setup
 
  - If you do not have it already, install Node.js and NPM.
@@ -549,6 +573,7 @@ To deploy this project to the cloud using Azure, you can reference [Creating a N
 Next, we will update your device so that it can interact with all the things you just created.
 
 <a name="section2.9" />
+
 ## 2.9 Add the Feather M0 WiFi to the Arduino IDE
 
 You will need to install the Feather M0 WiFi board extension for the Arduino IDE. This takes two steps:
@@ -558,6 +583,7 @@ You will need to install the Feather M0 WiFi board extension for the Arduino IDE
 2) Then continue with [Using Arduino IDE](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/using-with-arduino-ide), and see how to make the Feather M0 WiFi board selectable under the **Tools** menu, and how to get the Blink sketch to run.
 
 <a name="section2.10" />
+
 ## 2.10 Install Library Dependencies
 
 For this project, we'll need to install the following libraries using the Arduino IDE:
@@ -581,6 +607,7 @@ Instructions for manually installing a library can be found [here](https://www.a
 ***
 
 <a name="section2.11" />
+
 ## 2.11 Modify the Command Center sample
 
 - Unzip the example code, and double-click the file `command_center.ino` to open the project in the Arduino IDE.
@@ -607,6 +634,7 @@ static const char DeviceId[] = "[Device Name]";
 - Save with `Control-s`
 
 <a name="section2.12" />
+
 ## 2.12 Build Your Command Center Sample
 
 - Double-click the reset button on the Feather M0 WiFi to put it in boot-loader mode. The red LED will fade in and out to show bootload mode.
@@ -628,6 +656,7 @@ Head back to your Node application and you will have a fully functional command 
 ***
 
 <a name="section2.3" />
+
 ## 2.13 Next steps
 
 Please visit our [Azure IoT Dev Center](https://azure.microsoft.com/en-us/develop/iot/) for more samples and documentation on Azure IoT.
