@@ -11,15 +11,8 @@
 #include <time.h>
 #include <sys/time.h>
 #include <SPI.h>
-#ifdef ARDUINO_SAMD_FEATHER_M0
-#include <Adafruit_WINC1500.h>
-#include <Adafruit_WINC1500Client.h>
-#include <Adafruit_WINC1500Server.h>
-#include <Adafruit_WINC1500SSLClient.h>
-#include <Adafruit_WINC1500Udp.h>
-#elif defined(ARDUINO_SAMD_ZERO) || defined(ARDUINO_SAMD_MKR1000)
 #include <WiFi101.h>
-#endif
+
 
 #include "remote_monitoring.h"
 #include "NTPClient.h"
@@ -32,13 +25,16 @@
 #endif
 
 #ifdef ARDUINO_SAMD_FEATHER_M0
+
+// Optional LIPO battery monitoring
+#define VBAT_ENABLED 1
+#define VBAT_PIN    A7
+
 #define WINC_CS   8
 #define WINC_IRQ  7
 #define WINC_RST  4
 #define WINC_EN   2
 
-// Setup the WINC1500 connection with the pins above and the default hardware SPI.
-Adafruit_WINC1500 WiFi(WINC_CS, WINC_IRQ, WINC_RST);
 #endif
 
 
@@ -46,6 +42,7 @@ static char ssid[] = IOT_CONFIG_WIFI_SSID;
 static char pass[] = IOT_CONFIG_WIFI_PASSWORD;
 
 int status = WL_IDLE_STATUS;
+WiFiSSLClient sslClient;
 
 void setup() {
     // The Feather M0 loses it's COMn connection with every reset.
@@ -54,9 +51,15 @@ void setup() {
     
     initSerial();
 
-    #ifdef WINC_EN
+    #ifdef ARDUINO_SAMD_FEATHER_M0
+    //Configure pins for Adafruit ATWINC1500 Feather
+    Serial.println(F("WINC1500 on FeatherM0 detected."));
+    Serial.println(F("Setting pins for WiFi101 library (WINC1500 on FeatherM0)"));
+    WiFi.setPins(WINC_CS, WINC_IRQ, WINC_RST, WINC_EN);
+    // for the Adafruit WINC1500 we need to enable the chip
     pinMode(WINC_EN, OUTPUT);
     digitalWrite(WINC_EN, HIGH);
+    Serial.println(F("Enabled WINC1500 interface for FeatherM0"));
     #endif
     initWifi();
     
@@ -77,7 +80,7 @@ void initSerial() {
 }
 
 void initWifi() {
-    // Attempt to connect to Wifi network:
+  // Attempt to connect to Wifi network:
     Serial.print("\r\n\r\nAttempting to connect to SSID: ");
     Serial.println(ssid);
 
@@ -94,11 +97,7 @@ void initWifi() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 void initTime() {
-#ifdef ARDUINO_SAMD_FEATHER_M0
-    Adafruit_WINC1500UDP     _udp;
-#elif defined(ARDUINO_SAMD_ZERO) || defined(ARDUINO_SAMD_MKR1000)
     WiFiUDP     _udp;
-#endif
 
     time_t epochTime = (time_t)-1;
 
@@ -126,5 +125,6 @@ void initTime() {
 
     settimeofday(&tv, NULL);
 }
+
 
 
