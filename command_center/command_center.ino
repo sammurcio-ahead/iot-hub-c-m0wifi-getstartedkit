@@ -4,21 +4,16 @@
 // This example code shows how to use an Adafruit Feather M0 module and Microsoft Azure for IoT
 // applications.
 
+#include "iot_configs.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <time.h>
 #include <sys/time.h>
 #include <SPI.h>
-#ifdef ARDUINO_SAMD_FEATHER_M0
-#include <Adafruit_WINC1500.h>
-#include <Adafruit_WINC1500Client.h>
-#include <Adafruit_WINC1500Server.h>
-#include <Adafruit_WINC1500SSLClient.h>
-#include <Adafruit_WINC1500Udp.h>
-#elif defined(ARDUINO_SAMD_ZERO) || defined(ARDUINO_SAMD_MKR1000)
 #include <WiFi101.h>
-#endif
+
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
 #include "rem_ctrl.h"
@@ -32,14 +27,12 @@
 #define WINC_RST  4
 #define WINC_EN   2
 
-// Setup the WINC1500 connection with the pins above and the default hardware SPI.
-Adafruit_WINC1500 WiFi(WINC_CS, WINC_IRQ, WINC_RST);
 #endif
 
 
-static const char ssid[] = "[Your WiFi network SSID or name]";
-static const char pass[] = "[Your WiFi network WPA password or WEP key]";
-static const char* connectionString = "[Device Connection String]";
+static const char ssid[] = IOT_CONFIG_WIFI_SSID;
+static const char pass[] = IOT_CONFIG_WIFI_PASSWORD;
+static const char* connectionString = IOT_CONFIG_CONNECTION_STRING;
 
 // The connection string is the one which begins with HostName=... and contains the DeviceId
 // and SharedAccessKey for this particular Thing on the Internet.
@@ -61,9 +54,15 @@ void setup() {
   
   Serial.begin(9600);
 
-#ifdef WINC_EN
-  pinMode(WINC_EN, OUTPUT);
-  digitalWrite(WINC_EN, HIGH);
+#ifdef ARDUINO_SAMD_FEATHER_M0
+    //Configure pins for Adafruit ATWINC1500 Feather
+    Serial.println(F("WINC1500 on FeatherM0 detected."));
+    Serial.println(F("Setting pins for WiFi101 library (WINC1500 on FeatherM0)"));
+    WiFi.setPins(WINC_CS, WINC_IRQ, WINC_RST, WINC_EN);
+    // for the Adafruit WINC1500 we need to enable the chip
+    pinMode(WINC_EN, OUTPUT);
+    digitalWrite(WINC_EN, HIGH);
+    Serial.println(F("Enabled WINC1500 interface for FeatherM0"));
 #endif
 
   Serial.println("Checking for the presence of the BME280 temp/humid/press module.");
@@ -151,11 +150,7 @@ void loop() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 void initTime() {
-#ifdef ARDUINO_SAMD_FEATHER_M0
-    Adafruit_WINC1500UDP     _udp;
-#elif defined(ARDUINO_SAMD_ZERO) || defined(ARDUINO_SAMD_MKR1000)
     WiFiUDP     _udp;
-#endif
 
     time_t epochTime = (time_t)-1;
 
