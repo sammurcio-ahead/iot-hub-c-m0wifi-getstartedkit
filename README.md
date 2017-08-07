@@ -174,6 +174,9 @@ To install them, click on the `Sketch -> Include Library -> Manage Libraries`. S
 **Note**: Starting on version 1.0.17, `AzureIoTHub` required the `AzureIoTUtility` and one of the available protocols. These samples use the `AzureIoTProtocol_HTTP`, but it is prepared to work with `AzureIoTProtocol_MQTT` too.
 
 ***
+**Note**: Arduino version 1.8.3 with WiFi101 does not support SSL connections on ports other than 443, so the MQTT protocol fails to connect. After this issue has been fixed MQTT support will be available again.
+
+***
 **Note**: If you have an earlier version of the IoT library, navigate to your Arduino documents directory. Inside the "Libraries" folder, there will be a number of installed libraries. Simply delete the `AzureIoT` folder.
 ***
 
