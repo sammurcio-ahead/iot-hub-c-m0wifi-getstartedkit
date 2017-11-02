@@ -1,18 +1,15 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef __BME280_H
-#define __BME280_H
+#ifndef __SENSOR_H
+#define __SENSOR_H
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-void initBme(void);
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
+void initSensor(void);
 void getNextSample(float* Temperature, float* Humidity);
 
 #ifdef __cplusplus
@@ -20,5 +17,5 @@ void getNextSample(float* Temperature, float* Humidity);
 #endif
 
 
-#endif//__BME280_H
+#endif//__SENSOR_H
 

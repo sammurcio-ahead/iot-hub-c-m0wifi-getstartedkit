@@ -5,7 +5,7 @@
 
 #include "AzureIoTHub.h"
 #include "sdk/schemaserializer.h"
-#include "bme280.h"
+#include "sensor.h"
 
 /* CODEFIRST_OK is the new name for IOT_AGENT_OK. The follow #ifndef helps during the name migration. Remove it when the migration ends. */
 #ifndef  IOT_AGENT_OK
@@ -187,7 +187,7 @@ static IOTHUBMESSAGE_DISPOSITION_RESULT IoTHubMessage(IOTHUB_MESSAGE_HANDLE mess
 
 void remote_monitoring_run(void)
 {
-        initBme();
+        initSensor();
 
         srand((unsigned int)time(NULL));
         if (serializer_init(NULL) != SERIALIZER_OK)
@@ -241,7 +241,7 @@ void remote_monitoring_run(void)
                         {
                             LogInfo("deviceId=%s", deviceId);
                         }
-
+                        
                         /* send the device info upon startup so that the cloud app knows
                         what commands are available and the fact that the device is up */
                         thermostat->ObjectType = "DeviceInfo";
@@ -314,7 +314,7 @@ void remote_monitoring_run(void)
                             }
 
                             IoTHubClient_LL_DoWork(iotHubClientHandle);
-                            ThreadAPI_Sleep(100);
+                            ThreadAPI_Sleep(1000);
                             currentCycle++;
                         }
                     }
