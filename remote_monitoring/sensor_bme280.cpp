@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
-#include "bme280.h"
+#include "sensor.h"
 
 const int Bme280_cs_pin__i = 5;
 bool Bme_init_result = false;
@@ -12,7 +12,7 @@ Adafruit_BME280 bme(Bme280_cs_pin__i);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-void initBme(void)
+void initSensor(void)
 {
   Serial.println("Checking for the presence of the BME280 temp/humid/press module.");
   Bme_init_result = bme.begin();

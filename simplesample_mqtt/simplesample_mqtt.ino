@@ -12,18 +12,13 @@
 #include <sys/time.h>
 #include <SPI.h>
 #include <WiFi101.h>
-#include <WiFiUdp.h>
 
 
-#include "remote_monitoring.h"
+#include "simplesample_mqtt.h"
 #include "NTPClient.h"
 
 #include <AzureIoTHub.h>
-#if defined(IOT_CONFIG_MQTT)
-    #include <AzureIoTProtocol_MQTT.h>
-#elif defined(IOT_CONFIG_HTTP)
-    #include <AzureIoTProtocol_HTTP.h>
-#endif
+#include <AzureIoTProtocol_MQTT.h>
 
 #ifdef ARDUINO_SAMD_FEATHER_M0
 
@@ -68,10 +63,7 @@ void setup() {
 }
 
 void loop() {
-    // Run the Remote Monitoring from the Azure IoT Hub C SDK
-    // You must set the device id, device key, IoT Hub name and IotHub suffix in
-    // remote_monitoring.c
-    remote_monitoring_run();
+    simplesample_mqtt_run();
 }
 
 void initSerial() {
