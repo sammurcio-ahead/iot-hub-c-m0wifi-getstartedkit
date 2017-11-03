@@ -7,15 +7,15 @@
 /**
  * WiFi setup
  */
-#define IOT_CONFIG_WIFI_SSID            "Linksys02176"
-#define IOT_CONFIG_WIFI_PASSWORD        "rtwzg2e3gt"
+#define IOT_CONFIG_WIFI_SSID            "<Your WiFi network SSID or name>"
+#define IOT_CONFIG_WIFI_PASSWORD        "<Your WiFi network WPA password or WEP key>"
 
 /**
  * Find under Microsoft Azure IoT Suite -> DEVICES -> <your device> -> Device Details and Authentication Keys
  * String containing Hostname, Device Id & Device Key in the format:
  *  "HostName=<host_name>;DeviceId=<device_id>;SharedAccessKey=<device_key>"    
  */
-#define IOT_CONFIG_CONNECTION_STRING    "HostName=iot-sdks-test.azure-devices.net;DeviceId=arduino-feather-m0-jenkins-test;SharedAccessKey=gYcO0zlTPgsIEQIUKEnhcaeSHNPjAmdtSAbt3yfNvMQ="
+#define IOT_CONFIG_CONNECTION_STRING    "HostName=<host_name>.azure-devices.net;DeviceId=<device_id>;SharedAccessKey=<device_key>"
 
 /** 
  * Choose the transport protocol
