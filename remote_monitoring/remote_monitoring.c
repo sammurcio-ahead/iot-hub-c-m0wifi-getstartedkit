@@ -327,3 +327,9 @@ void remote_monitoring_run(void)
 
     }
 }
+
+void sample_run(void)
+{
+    remote_monitoring_run();
+}
+
