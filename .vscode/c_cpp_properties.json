@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:\\Users\\sam.murcio\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.2.9\\**"
+            ],
+            "forcedInclude": [
+                "C:\\Users\\sam.murcio\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.2.9\\cores\\arduino\\Arduino.h"
+            ],
+            "intelliSenseMode": "msvc-x64"
+        }
+    ],
+    "version": 4
+}

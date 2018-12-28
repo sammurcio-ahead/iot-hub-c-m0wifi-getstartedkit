@@ -15,13 +15,13 @@
 #endif
 
 #include "sample.h"
-#include "samd/sample_init.h"
+#include "samd/sample_init_nopass.h"
 
 static char ssid[] = IOT_CONFIG_WIFI_SSID;
 static char pass[] = IOT_CONFIG_WIFI_PASSWORD;
 
 void setup() {
-    sample_init(ssid, pass);
+    sample_init(ssid);
 }
 
 // Azure IoT samples contain their own loops, so only run them once
@@ -40,4 +40,3 @@ void loop() {
       delay(500);
     }
 }
-
